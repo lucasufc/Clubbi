@@ -1,0 +1,24 @@
+table {
+    width: 100%;
+}
+thead {
+    border-bottom: 1px solid black;
+}
+th {
+    color: #9c98a6;
+}
+td {
+    text-align: center;
+}
+
+button {
+    border: none;
+    padding: 10px 15px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #d72631;
+    color: white;
+    margin-right: 5px;
+}
+

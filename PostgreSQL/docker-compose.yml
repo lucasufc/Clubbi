@@ -4,9 +4,10 @@ services:
   teste-postgres-compose:
     image: postgres
     environment:
+      POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "12345"
     ports:
-      - "15432:5432"
+      - "5438:5432"
     volumes:
       - /home/lucas/Documents/GitHub/Clubbi/PostgreSQL/db:/var/lib/postgresql/data 
     networks:

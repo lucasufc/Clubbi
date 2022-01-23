@@ -15,9 +15,8 @@ VALUES  (0,'concluido'),
 
 CREATE TABLE item(
     order_id INT NOT NULL,
-    product_id SERIAL PRIMARY KEY,
+    product_id INT PRIMARY KEY,
     unit_price NUMERIC CHECK(unit_price > 0) NOT NULL,
-    img TEXT DEFAULT 'https://vmcom.com.br/adm_cursos/admpanel-vm/img/default.jpg',
     description TEXT DEFAULT '',
     FOREIGN KEY (order_id) REFERENCES orders(order_id)
 );

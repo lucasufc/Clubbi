@@ -1,0 +1,3 @@
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgresql:12345@localhost/clubbi'
+
+/home/lucas/.local/share/virtualenvs/Backend-MwHJDLEu
