@@ -10,10 +10,18 @@ db = SQLAlchemy(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:12345@localhost:5438/clubbi-test'
 
+def create_db():
+    """Creates database"""
+    db.create_all()
+
+
+def drop_db():
+    """Cleans database"""
+    db.drop_all()
 
 #=========================== Classes ===========================#       
 class Item(db.Model):
-    __tablename__ = 'item'
+    __tablename__ = 'items'
 
     product_id = db.Column(db.Integer, primary_key=True)
     unit_price = db.Column(db.Float)
@@ -27,7 +35,7 @@ class Item(db.Model):
         self.description = description
 
 class Order(db.Model):
-    __tablename__ = 'ordens'
+    __tablename__ = 'orders'
 
     order_id = db.Column(db.Integer, primary_key=True)
     client_id = db.Column(db.Integer)
@@ -41,11 +49,11 @@ class Order(db.Model):
         self.order_status = order_status
 
 class Item_Order(db.Model):
-    __tablename__ = 'ordem_item'
+    __tablename__ = 'item_orders'
 
     id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(db.Integer)
-    product_id = db.Column(db.Integer, db.ForeignKey('item.product_id'))
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.order_id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('items.product_id'))
     qtde = db.Column(db.Integer)
 
     def __repr__(self):
@@ -57,6 +65,16 @@ class Item_Order(db.Model):
         self.qtde = qtde
 
 #=========================== Rotas ===========================#
+#
+@app.route('/reset/<password>', methods=['POST'])
+def reset(password):
+    if(password == '123'):
+        drop_db()
+        create_db()
+        return "Concluido"
+    return "Falhou"
+#############################################################
+
 def format_item(item):
     return{
         "product_id": item.product_id,
