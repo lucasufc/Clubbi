@@ -21,6 +21,6 @@ VALUES  ( 5.60, 'Arroz' ),
 INSERT INTO public.item_orders(order_id, product_id, qtde)
 	VALUES  (1, 1, 10),
             (1, 3, 9),
-            (2. 5, 7),
+            (2, 5, 7),
             (2, 3, 15),
             (3, 2, 5);
