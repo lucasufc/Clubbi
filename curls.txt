@@ -12,8 +12,8 @@ curl -XPOST -H "Content-type: application/json" -d '{
     "qtde": 1
 }' 'localhost:5000/item_order'
 
-
-
+-Retornar todos itens de uma order a partir de um ID
+curl -XGET 'localhost:5000/order_item/1'
 
 
 - Update do preço de itens, passado o product_id

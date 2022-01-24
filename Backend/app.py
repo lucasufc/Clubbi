@@ -233,5 +233,14 @@ def delete_specifc_order(order_id, product_id):
     db.session.commit()
     return "Deletado"
 
+# get all items in order
+@app.route('/order_item/<order_id>',methods=['GET'])
+def get_itemOrders(order_id):
+    item_orders = Item_Order.query.filter_by(order_id=order_id).all()
+    item_order_list = []
+    for item_order in item_orders:
+        item_order_list.append(format_item_order(item_order))
+    return {'data': item_order_list}
+
 if __name__ == '__main__':
     app.run()
