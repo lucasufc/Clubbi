@@ -7,7 +7,7 @@ export const Home = () => {
     const [ordem, setOrdem] = useState([])
     useEffect(() => {
         api.get('/orders')
-            .then( ({ data }) => setOrdem(data.order))
+            .then( ({ data }) => setOrdem(data.data))
     },[])
     
     return(
