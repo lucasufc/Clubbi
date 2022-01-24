@@ -1,6 +1,8 @@
+from itertools import product
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
+from sqlalchemy import desc
 
 app = Flask(__name__)
 CORS(app)
@@ -9,13 +11,20 @@ db = SQLAlchemy(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:12345@localhost:5438/clubbi-test'
 
 
-        
+#=========================== Classes ===========================#       
 class Item(db.Model):
     __tablename__ = 'item'
 
     product_id = db.Column(db.Integer, primary_key=True)
-    unit_price = db.Column(db.Integer)
+    unit_price = db.Column(db.Float)
     description = db.Column(db.String(50))
+
+    def __repr__(self):
+        return f"product_id: {self.product_id}"
+
+    def __init__(self, unit_price, description):
+        self.unit_price = unit_price
+        self.description = description
 
 class Order(db.Model):
     __tablename__ = 'ordens'
@@ -30,13 +39,6 @@ class Order(db.Model):
     def __init__(self, client_id, order_status):
         self.client_id = client_id
         self.order_status = order_status
-
-def format_order(order):
-    return {
-        "order_id": order.order_id,
-        "client_id": order.client_id,
-        "order_status": order.order_status
-    }
 
 class Item_Order(db.Model):
     __tablename__ = 'ordem_item'
@@ -54,23 +56,122 @@ class Item_Order(db.Model):
         self.product_id = product_id
         self.qtde = qtde
 
-def format_all(order_item, valor):
-    return {
-        "order_id": order_item.order_id,
-        "valor": valor,
+#=========================== Rotas ===========================#
+def format_item(item):
+    return{
+        "product_id": item.product_id,
+        "unit_price": item.unit_price,
+        "description": item.description
     }
-@app.route("/values", methods=['GET'])
-def get_item_orders():
-    all_list=[]
+
+# get all items
+@app.route('/items',methods=['GET'])
+def get_items():
     items = Item.query.all()
-    order_item = Item_Order.query.all()
-    for item in order_item:
-        valor = 0
-        for produto in items:
-            if(produto.product_id == item.product_id):
-                valor += item.qtde*produto.unit_price    
-        all_list.append(format_all(item, valor))
-    return {'total': all_list}
+    item_list = []
+    for item in items:
+        item_list.append(format_item(item))
+    return {'data': item_list}
+
+# get single item
+@app.route('/items/<id>',methods=['GET'])
+def get_item(id):
+    item = Item.query.filter_by(product_id=id).one()
+    formatted_item = format_item(item)
+    return {'data':  formatted_item}
+
+# create item
+@app.route('/items', methods=['POST'])
+def create_item():
+    unit_price = request.json['unit_price']
+    description = request.json['description']
+    item = Item(unit_price, description)
+    db.session.add(item)
+    db.session.commit()
+    return format_item(item)
+
+# update an item item 
+@app.route('/items/<id>',methods=['PUT'])
+def update_item(id):
+    item = Item.query.filter_by(product_id=id)  
+    unit_price = request.json['unit_price']
+    item.update(dict(unit_price=unit_price))
+    db.session.commit()
+    return 'Item updated!'
+
+# delete an item
+@app.route('/items/<id>', methods=['DELETE'])
+def delete_item(id):
+    item = Item.query.filter_by(product_id=id).one()
+    db.session.delete(item)
+    db.session.commit()
+    return "Item deleted!"
+
+
+
+#################################################################################
+def format_item_order(item_order):
+    return {
+        "id": item_order.id,
+        "order_id": item_order.order_id,
+        "product_id": item_order.product_id,
+        "qtde": item_order.qtde
+    }
+
+# get all item order
+@app.route('/item_order',methods=['GET'])
+def get_item_orders():
+    item_orders = Item_Order.query.all()
+    item_order_list = []
+    for item_order in item_orders:
+        item_order_list.append(format_item_order(item_order))
+    return {'data': item_order_list}
+
+# get single item order
+@app.route('/item_order/<id>',methods=['GET'])
+def get_item_order(id):
+    item_order = Item_Order.query.filter_by(id=id).one()
+    formatted_item_order = format_item_order(item_order)
+    return {'data':  formatted_item_order}
+
+# create item order
+@app.route('/item_order', methods=['POST'])
+def create_item_order():
+    order_id = request.json['order_id']
+    product_id = request.json['product_id']
+    qtde = request.json['qtde']
+    item_order = Item_Order(order_id, product_id, qtde)
+    db.session.add(item_order)
+    db.session.commit()
+    return format_item_order(item_order)
+
+# update an item order 
+@app.route('/item_order/<id>',methods=['PUT'])
+def update_item_order(id):
+    item_order = Item_Order.query.filter_by(id=id)  
+    order_id = request.json['order_id']
+    product_id = request.json['product_id']
+    qtde = request.json['qtde']
+    item_order.update(dict(order_id=order_id, product_id=product_id, qtde=qtde))
+    db.session.commit()
+    return 'Item Order updated!'
+
+# delete an order
+@app.route('/item_order/<id>', methods=['DELETE'])
+def delete_item_order(id):
+    item_order = Item_Order.query.filter_by(id=id).one()
+    db.session.delete(item_order)
+    db.session.commit()
+    return "Order deleted!"
+
+#################################################################################
+
+def format_order(order):
+    return {
+        "order_id": order.order_id,
+        "client_id": order.client_id,
+        "order_status": order.order_status
+    }
 
 # get all orders
 @app.route('/orders', methods=['GET'])
@@ -80,6 +181,13 @@ def get_orders():
     for order in orders:
         order_list.append(format_order(order))
     return {'order': order_list}
+
+# get single order
+@app.route('/orders/<id>', methods=['GET'])
+def get_order(id):
+    order = Order.query.filter_by(order_id=id).one()
+    formatted_order = format_order(order)
+    return {'order': formatted_order}
 
 #create an order
 @app.route('/orders', methods=['POST'])
@@ -91,12 +199,16 @@ def create_order():
     db.session.commit()
     return format_order(ordem)
 
-# get single order
-@app.route('/orders/<id>', methods=['GET'])
-def get_order(id):
-    order = Order.query.filter_by(order_id=id).one()
-    formatted_order = format_order(order)
-    return {'order': formatted_order}
+# update an order
+@app.route('/orders/<id>', methods=['PUT'])
+def update_order(id):
+    order = Order.query.filter_by(order_id=id)
+    client_id = request.json['client_id']
+    order_status = request.json['order_status']
+    order.update(dict(client_id = client_id, order_status = order_status))
+    db.session.commit()
+    return 'Order updated!'
+
 
 # delete an order
 @app.route('/orders/<id>', methods=['DELETE'])
@@ -113,16 +225,5 @@ def delete_order(id):
     return "Order deleted!"
 
 
-# update an order
-@app.route('/orders/<id>', methods=['PUT'])
-def update_order(id):
-    order = Order.query.filter_by(order_id=id)
-    client_id = request.json['client_id']
-    order_status = request.json['order_status']
-    order.update(dict(client_id = client_id, order_status = order_status))
-    db.session.commit()
-    return 'Order updated!'
-    
-    
 if __name__ == '__main__':
     app.run()

@@ -1,0 +1,11 @@
+curl -XPOST -H "Content-type: application/json" -d '{
+    "client_id": 1,
+    "order_status": "Em Progresso"
+}' 'localhost:5000/orders'
+
+
+curl -XDELETE 'localhost:5000/orders/17'
+
+curl -XPUT -H "Content-type: application/json" -d '{
+    "unit_price": 5.90
+}' 'localhost:5000/items/1'
