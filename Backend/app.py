@@ -224,6 +224,14 @@ def delete_order(id):
 
     return "Order deleted!"
 
+#delete a specific item in order
+@app.route('/orders/<order_id>/<product_id>', methods=['DELETE'])
+def delete_specifc_order(order_id, product_id):
+
+    item = Item_Order.query.filter_by(product_id=product_id).filter_by(order_id=order_id).one()
+    db.session.delete(item)
+    db.session.commit()
+    return "Deletado"
 
 if __name__ == '__main__':
     app.run()

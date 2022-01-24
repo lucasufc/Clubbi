@@ -1,11 +1,25 @@
+- Criação de uma order
 curl -XPOST -H "Content-type: application/json" -d '{
     "client_id": 1,
     "order_status": "Em Progresso"
 }' 'localhost:5000/orders'
 
+- Adicionar/remover um item de certa order, dado o order ID
+curl -XDELETE 'localhost:5000/orders/1/2'
+curl -XPOST -H "Content-type: application/json" -d '{
+    "order_id": 2,
+    "product_id": 3,
+    "qtde": 1
+}' 'localhost:5000/item_order'
 
-curl -XDELETE 'localhost:5000/orders/17'
 
+
+
+
+- Update do preço de itens, passado o product_id
 curl -XPUT -H "Content-type: application/json" -d '{
     "unit_price": 5.90
 }' 'localhost:5000/items/1'
+
+- Cancelar uma order a partir de um order ID
+curl -XDELETE 'localhost:5000/orders/17'
