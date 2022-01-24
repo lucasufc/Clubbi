@@ -73,6 +73,20 @@ def reset(password):
         create_db()
         return "Concluido"
     return "Falhou"
+
+
+@app.route('/status/<order_id>', methods=['GET'])
+def get_status(order_id):
+    order = Order.query.filter_by(order_id=order_id).one()
+    return {"status": order.order_status}
+
+@app.route('/status/<order_id>', methods=['POST'])
+def update_status(order_id):
+    order = Order.query.filter_by(order_id=order_id)
+    order_status = request.json['order_status']
+    order.update(dict(order_status = order_status))
+    db.session.commit()
+    return 'Status updated!'
 #############################################################
 
 def format_item(item):
@@ -198,14 +212,14 @@ def get_orders():
     order_list=[]
     for order in orders:
         order_list.append(format_order(order))
-    return {'order': order_list}
+    return {'data': order_list}
 
 # get single order
 @app.route('/orders/<id>', methods=['GET'])
 def get_order(id):
     order = Order.query.filter_by(order_id=id).one()
     formatted_order = format_order(order)
-    return {'order': formatted_order}
+    return {'data': formatted_order}
 
 #create an order
 @app.route('/orders', methods=['POST'])
