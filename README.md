@@ -3,9 +3,6 @@
 <h1 align="center">Desafio - Processo Seletivo Software Engineer</h1> 
 <p align="center">Sistema de gerenciamento de pedidos(orders). Web API usando Python3, PostgreSQL e ReactJs</p>
 
-<h4 align="center"> 
-	🚧  Fronted 🚀 Em construção...  🚧
-</h4>
 
 ### Features
 
@@ -67,3 +64,8 @@ $ flask run
 ```
 
 ### Local files
+
+
+<h4 align="center"> 
+	🚧  Fronted 🚀 Em construção...  🚧
+</h4>
