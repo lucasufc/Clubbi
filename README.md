@@ -13,16 +13,26 @@
 - [x] Retornar todos itens de uma order a partir de um ID
 - [x] Update do preço de itens, passado o product_id
 - [x] Cancelar uma order a partir de um order ID
+- [x] Alterar o status de uma order a partir de seu ID
+- [x] Buscar todos os produtos de uma determinada order
+- [x] Deletar um produto em uma order especifica a partir do order_id
 
 
 Tabela de conteúdos
 =================
 <!--ts-->
+   * [Modelo Relacional](#modelo-relacional)
    * [Como usar](#como-usar)
       * [Pre requisitos](#pre-requisitos)
-      * [Local files](#local-files)
+      * [Rotas](#rotas)
    * [Tecnologias](#tecnologias)
 <!--te-->
+
+## Modelo Relacional
+<p widht=100% align="center">
+<img width=50% src="https://user-images.githubusercontent.com/32624827/151229436-cfd5f2e5-32aa-4a77-9695-64c74e91d48f.png" description="Modelo Relacional"/>
+</p>
+ 
 
 ## Como usar
 
@@ -65,9 +75,37 @@ $ flask run
 
 ```
 
-### Local files
-
+### Rotas
+<h4>Objetivo: Criação de uma order</h4>
+Rota: */orders* <br>
+MÉTODO: **PUT** <br>
+#### (/order)
+##### Metodos
 
 <h4 align="center"> 
 	🚧  Fronted 🚀 Em construção...  🚧
 </h4>
+
+### 🛠 Tecnologias
+
+As seguintes ferramentas foram usadas na construção do projeto:
+
+- [Git](https://git-scm.com)
+- [Docker](https://www.docker.com/)
+- [Python3](https://www.python.org/downloads/)
+- [Pipenv](https://pipenv.pypa.io/en/latest/)
+- [React](https://pt-br.reactjs.org/)
+
+
+
+### Autor
+---
+
+<a href="https://github.com/lucasufc">
+ <img style="border-radius:50%;" src="https://avatars.githubusercontent.com/u/32624827?v=4" width="100px;" alt="Lucas Martins"/>
+ <br />
+ <sub><b>Lucas Martins</b></sub></a> <a href="https://github.com/lucasufc/" title="GitHub">😎👍</a>
+   
+[![Linkedin Badge](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/lucas-martins-oliveira/)](https://www.linkedin.com/in/lucas-martins-oliveira/) 
+[![Gmail Badge](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white&link=mailto:lucashk.eng@gmail.com)](mailto:lucashk.eng@gmail.com)
+
