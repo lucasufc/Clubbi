@@ -75,12 +75,133 @@ $ flask run
 
 ```
 
-### Rotas
-<h4>Objetivo: Criação de uma order</h4>
-Rota: */orders* <br>
-MÉTODO: **PUT** <br>
-#### (/order)
-##### Metodos
+## Rotas
+
+<h3>Objetivo: Criação de uma order</h3>
+
+
+__ROTA:__ ```(/order)``` <br/>
+__MÉTODO:__ ```POST```
+
+```bash
+# Exemplo com um curl command
+$ curl -XPOST -H "Content-type: application/json" -d '{
+    "client_id": 1,
+    "order_status": "Em Progresso"
+}' 'localhost:5000/orders'
+```
+---
+
+<h3>Objetivo:  Adicionar um item de certa order, dado o order ID</h3>
+
+__Rota:__ ```(/item_order)``` <br/>
+__Método:__ ```POST```
+
+```bash
+# Exemplo com curl command
+curl -XPOST -H "Content-type: application/json" -d '{
+    "order_id": 2,
+    "product_id": 3,
+    "qtde": 1
+}' 'localhost:5000/item_order'
+
+```
+
+---
+
+<h3>Objetivo:  Remover um item de certa order, dado o order ID</h3>
+
+__ROTA:__ ```(/orders/order_id/product_id)``` <br/>
+__MÉTODO:__ ```DELETE```
+
+```bash
+# Exemplo com curl command
+curl -XDELETE 'localhost:5000/orders/1/2'
+
+```
+
+---
+
+<h3>Objetivo: Retornar todos itens de uma order a partir de um ID</h3>
+
+
+__ROTA:__ ```(/order_item/order_id)``` <br/>
+__MÉTODO:__ ```GET```
+
+```bash
+# Exemplo com um curl command
+$ curl -XGET 'localhost:5000/order_item/1'
+```
+---
+
+
+<h3>Objetivo: Update do preço de itens, passado o product_id</h3>
+
+
+__ROTA:__ ```(/items/product_id)``` <br/>
+__MÉTODO:__ ```PUT```
+
+```bash
+# Exemplo com um curl command
+$ curl -XPUT -H "Content-type: application/json" -d '{
+    "unit_price": 5.90
+}' 'localhost:5000/items/1'
+```
+---
+
+
+<h3>Objetivo: Cancelar uma order a partir de um order ID</h3>
+
+
+__ROTA:__ ```(/order)``` <br/>
+__MÉTODO:__ ```DELETE```
+
+```bash
+# Exemplo com um curl command
+$ curl -XDELETE 'localhost:5000/orders/17'
+```
+
+---
+
+<h3>Objetivo: Alterar o status de uma order a partir de seu ID</h3>
+
+
+__ROTA:__ ```(/status/<order_id>)``` <br/>
+__MÉTODO:__ ```PUT```
+
+```bash
+# Exemplo com um curl command
+$ curl -XPUT -H "Content-type: application/json" -d '{
+    "order_status": "finalizado"
+}' 'localhost:5000/status/1'
+```
+---
+
+
+<h3>Objetivo: Buscar todos os produtos de uma determinada order</h3>
+
+
+__ROTA:__ ```(/item_order/<order_id>)``` <br/>
+__MÉTODO:__ ```GET```
+
+```bash
+# Exemplo com um curl command
+$ curl -XGET 'localhost:5000/item_order/1'
+```
+---
+
+
+<h3>Objetivo: Deletar um produto em uma order especifica a partir do order_id</h3>
+
+
+__ROTA:__ ```(/orders/<order_id>/<product_id>)``` <br/>
+__MÉTODO:__ ```DELETE```
+
+```bash
+# Exemplo com um curl command
+$ curl -XDELETE 'localhost:5000/orders/1/3'
+```
+---
 
 <h4 align="center"> 
 	🚧  Fronted 🚀 Em construção...  🚧
