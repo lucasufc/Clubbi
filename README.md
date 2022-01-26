@@ -8,17 +8,18 @@
 
 ### Features
 
-- [ ] __OBRIGATÓRIAS__
+## OBRIGATÓRIAS
 - [x] Criação de uma order
-- [x] Adicionar/remover um item de certa order, dado o order ID
-- [x] Retornar todos itens de uma order a partir de um ID
-- [x] Update do preço de itens, passado o product_id
-- [x] Cancelar uma order a partir de um order ID
-- [ ] __EXTRAS__
-- [x] Alterar o status de uma order a partir de seu ID
-- [x] Obter o status de uma order a partir de seu ID
-- [x] Buscar todos os produtos de uma determinada order
-- [x] Deletar um produto em uma order especifica a partir do order_id
+- [x] Adicionar um item de certa order, dado o **order_id**
+- [x] Remover um item de certa order, dado o **order_id**
+- [x] Retornar todos itens de certa order, dado o **order_id**
+- [x] Update do preço de certo item, dado o **product_id**
+- [x] Cancelar certa order, dado o **order_id**
+## EXTRAS
+- [x] Buscar todos os produtos de uma determinada order, dado o **order_id**
+- [x] Alterar o status de certa order, dado o **order_id**
+- [x] Obter o status de certa order, dado o **order_id**
+- [x] Deletar um produto em uma certa order, dado o **order_id**
 
 
 # Tabela de conteúdos
@@ -114,7 +115,7 @@ curl -XPOST -H "Content-type: application/json" -d '{
 
 ---
 
-<h3>Objetivo:  Remover um item de certa order, dado o order_id e o product_id</h3>
+<h3>Objetivo:  Remover um item de certa order, dado o order_id</h3>
 
 __ROTA:__ ```(/orders/order_id/product_id)``` <br/>
 __MÉTODO:__ ```DELETE```
@@ -127,7 +128,7 @@ curl -XDELETE 'localhost:5000/orders/1/2'
 
 ---
 
-<h3>Objetivo: Retornar todos itens de uma order a partir de um order_id</h3>
+<h3>Objetivo: Retornar todos itens de certa order, dado o order_id</h3>
 
 
 __ROTA:__ ```(/order_item/order_id)``` <br/>
@@ -140,7 +141,7 @@ $ curl -XGET 'localhost:5000/order_item/1'
 ---
 
 
-<h3>Objetivo: Update do preço de itens, passado o product_id</h3>
+<h3>Objetivo: Update do preço de certo item, dado o product_id</h3>
 
 
 __ROTA:__ ```(/items/product_id)``` <br/>
@@ -155,7 +156,7 @@ $ curl -XPUT -H "Content-type: application/json" -d '{
 ---
 
 
-<h3>Objetivo: Cancelar uma order a partir de um order_id</h3>
+<h3>Objetivo: Cancelar certa order, dado o order_id</h3>
 
 
 __ROTA:__ ```(/orders/order_id)``` <br/>
@@ -170,7 +171,19 @@ $ curl -XDELETE 'localhost:5000/orders/17'
 ## EXTRAS
 
 
-<h3>Objetivo: Alterar o status de uma order a partir de seu order_id</h3>
+<h3>Objetivo: Buscar todos os produtos de uma determinada order, dado o order_id</h3>
+
+
+__ROTA:__ ```(/item_order/<order_id>)``` <br/>
+__MÉTODO:__ ```GET```
+
+```bash
+# Exemplo com um curl command
+$ curl -XGET 'localhost:5000/item_order/1'
+```
+---
+
+<h3>Objetivo: Alterar o status de certa order, dado o order_id</h3>
 
 
 __ROTA:__ ```(/status/<order_id>)``` <br/>
@@ -185,7 +198,7 @@ $ curl -XPUT -H "Content-type: application/json" -d '{
 ---
 
 
-<h3>Objetivo: Obter o status de uma order a partir de seu order_id</h3>
+<h3>Objetivo: Obter o status de certa order, dado o order_id</h3>
 
 
 __ROTA:__ ```(/status/<order_id>)``` <br/>
@@ -198,20 +211,7 @@ $ curl -XGET 'localhost:5000/status/1'
 ---
 
 
-<h3>Objetivo: Buscar todos os produtos de uma determinada order, dado o order_id</h3>
-
-
-__ROTA:__ ```(/item_order/<order_id>)``` <br/>
-__MÉTODO:__ ```GET```
-
-```bash
-# Exemplo com um curl command
-$ curl -XGET 'localhost:5000/item_order/1'
-```
----
-
-
-<h3>Objetivo: Deletar um produto em uma order especifica a partir do order_id</h3>
+<h3>Objetivo: Deletar um produto em uma certa order, dado o order_id</h3>
 
 
 __ROTA:__ ```(/orders/<order_id>/<product_id>)``` <br/>
@@ -224,7 +224,8 @@ $ curl -XDELETE 'localhost:5000/orders/1/3'
 ---
 
 <h4 align="center"> 
-	🚧  Fronted 🚀 Em construção...  🚧
+	🚧  Fronted 🚀 Em construção...   🚧    
+	Yarn
 </h4>
 
 ### 🛠 Tecnologias
