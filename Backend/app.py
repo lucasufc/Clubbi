@@ -10,15 +10,6 @@ db = SQLAlchemy(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:12345@localhost:5438/clubbi'
 
-def create_db():
-    """Creates database"""
-    db.create_all()
-
-
-def drop_db():
-    """Cleans database"""
-    db.drop_all()
-
 #=========================== Classes ===========================#       
 class Item(db.Model):
     __tablename__ = 'items'
@@ -65,15 +56,6 @@ class Item_Order(db.Model):
         self.qtde = qtde
 
 #=========================== Rotas ===========================#
-#
-@app.route('/reset/<password>', methods=['POST'])
-def reset(password):
-    if(password == '123'):
-        drop_db()
-        create_db()
-        return "Concluido"
-    return "Falhou"
-
 
 @app.route('/status/<order_id>', methods=['GET'])
 def get_status(order_id):
