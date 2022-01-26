@@ -1,13 +1,15 @@
-DROP DATABASE [IF EXISTS] clubbi;
+DROP DATABASE IF EXISTS clubbi;
 CREATE DATABASE clubbi;
 
 \c clubbi
 
 DROP TABLE IF EXISTS public.items;
-
+CREATE SEQUENCE items_product_id_seq
+	start 1 
+	increment 1;
 CREATE TABLE IF NOT EXISTS public.items
 (
-    product_id integer NOT NULL DEFAULT nextval('items_product_id_seq'::regclass),
+    product_id integer NOT NULL DEFAULT nextval('items_product_id_seq'),
     unit_price double precision,
     description character varying(50) COLLATE pg_catalog."default",
     CONSTRAINT items_pkey PRIMARY KEY (product_id)
@@ -18,9 +20,10 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.items
     OWNER to postgres;
 
+CREATE SEQUENCE orders_order_id_seq;
 CREATE TABLE IF NOT EXISTS public.orders
 (
-    order_id integer NOT NULL DEFAULT nextval('orders_order_id_seq'::regclass),
+    order_id integer NOT NULL DEFAULT nextval('orders_order_id_seq'),
     client_id integer,
     order_status character varying(40) COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT orders_pkey PRIMARY KEY (order_id)
@@ -31,6 +34,8 @@ ALTER TABLE IF EXISTS public.orders
     OWNER to postgres;
 
 DROP TABLE IF EXISTS public.item_orders;
+CREATE SEQUENCE item_orders_id_seq;
+
 CREATE TABLE IF NOT EXISTS public.item_orders
 (
     id integer NOT NULL DEFAULT nextval('item_orders_id_seq'::regclass),
