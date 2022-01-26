@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 db = SQLAlchemy(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:12345@localhost:5438/clubbi-test'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:12345@localhost:5438/clubbi'
 
 def create_db():
     """Creates database"""
