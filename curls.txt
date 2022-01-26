@@ -23,3 +23,18 @@ curl -XPUT -H "Content-type: application/json" -d '{
 
 - Cancelar uma order a partir de um order ID
 curl -XDELETE 'localhost:5000/orders/17'
+
+-Alterar o status de uma order a partir de seu order_id
+
+curl -XPUT -H "Content-type: application/json" -d '{
+    "order_status": "finalizado"
+}' 'localhost:5000/status/1'
+
+- Obter o status de uma order a partir de seu order_id
+curl -XGET 'localhost:5000/status/1'
+
+- Buscar todos os produtos de uma determinada order, dado o order_id
+curl -XGET 'localhost:5000/item_order/1'
+
+- Deletar um produto em uma order especifica a partir do order_id
+curl -XDELETE 'localhost:5000/orders/1/3'

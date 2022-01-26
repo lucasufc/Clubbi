@@ -7,7 +7,7 @@ import cancel from '../../shared/assets/images/icons/cancel.svg'
 import confirm from '../../shared/assets/images/icons/confirm.svg'
 import { api } from '../../shared/services/api'
 
-import './Orders.css'
+import './editOrders.css'
 
 export const EditOrders = () => {
     let order_id = useParams().id
