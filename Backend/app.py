@@ -80,7 +80,7 @@ def get_status(order_id):
     order = Order.query.filter_by(order_id=order_id).one()
     return {"status": order.order_status}
 
-@app.route('/status/<order_id>', methods=['POST'])
+@app.route('/status/<order_id>', methods=['PUT'])
 def update_status(order_id):
     order = Order.query.filter_by(order_id=order_id)
     order_status = request.json['order_status']
@@ -159,12 +159,14 @@ def get_item_orders():
         item_order_list.append(format_item_order(item_order))
     return {'data': item_order_list}
 
-# get single item order
-@app.route('/item_order/<id>',methods=['GET'])
-def get_item_order(id):
-    item_order = Item_Order.query.filter_by(id=id).one()
-    formatted_item_order = format_item_order(item_order)
-    return {'data':  formatted_item_order}
+# get alll item-orders from a order id
+@app.route('/item_order/<order_id>',methods=['GET'])
+def get_item_order(order_id):
+    item_orders = Item_Order.query.filter_by(order_id=order_id).all()
+    item_order_list = []
+    for item_order in item_orders:
+        item_order_list.append(format_item_order(item_order))
+    return {'data': item_order_list}
 
 # create item order
 @app.route('/item_order', methods=['POST'])
@@ -247,11 +249,11 @@ def update_order(id):
 def delete_order(id):
     order = Order.query.filter_by(order_id=id).one()
     item_order = Item_Order.query.filter_by(order_id=id).all()
+    for item in item_order:
+        db.session.delete(item) 
+    db.session.commit()
 
     db.session.delete(order)
-    db.session.commit()
-    for item in item_order:
-        db.session.delete(item)
     db.session.commit()
 
     return "Order deleted!"

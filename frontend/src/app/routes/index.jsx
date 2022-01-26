@@ -1,15 +1,15 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 
-import { Edit, Home }from '../pages'
+import { EditOrders, Home, Orders }from '../pages'
 export const Rotas = () => {
     return(
         <BrowserRouter>
             <Routes>
-                <Route path="/pagina-inicial" element={<Home/>}/>
-                <Route path="/editar" element={<Edit/>}>
-                    
+                <Route path="/" element={<Home/>}/>
+                <Route path="/orders" element={<Orders/>}>
                 </Route>
-                <Route path="*" element={<Navigate to="/pagina-inicial"/>} />
+                    <Route path="/edit_orders/:id" element={<EditOrders/>} />
+                <Route path="*" element={<Navigate to="/"/>} />
             </Routes>
         </BrowserRouter>
     )

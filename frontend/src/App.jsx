@@ -1,17 +1,8 @@
 import { Rotas } from "./app/routes";
-import { Area, PageHeader } from "./app/shared/Components"
-import './App.css'
+import './app/shared/assets/styles/global.css'
 
-const App = () => {
+export const App = () => {
   return (
-    <div className="App">
-        <PageHeader />
-        <Area>
-            <Rotas />   
-        </Area>
-         
-    </div>
+    <Rotas />   
   );
 }
-
-export default App;
