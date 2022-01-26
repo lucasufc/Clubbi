@@ -1,5 +1,7 @@
 
-<img src="https://user-images.githubusercontent.com/32624827/151160769-1df2cada-3c22-455e-bc06-54883abbe666.png"/>
+<p widht=100% align="center">
+<img width=45% src="https://user-images.githubusercontent.com/32624827/151160769-1df2cada-3c22-455e-bc06-54883abbe666.png"/>
+</p>
 <h1 align="center">Desafio - Processo Seletivo Software Engineer</h1> 
 <p align="center">Sistema de gerenciamento de pedidos(orders). Web API usando Python3, PostgreSQL e ReactJs</p>
 
