@@ -23,7 +23,7 @@
 
 
 # Tabela de conteúdos
-=================
+
 <!--ts-->
    * [Modelo Relacional](#modelo-relacional)
    * [Como usar](#como-usar)
