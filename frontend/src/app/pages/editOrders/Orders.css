@@ -130,7 +130,7 @@ a {
 
     #page-order-form main .order-item{
         display: grid;
-        grid-template-columns: 1fr 1fr 4fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr;
         column-gap: 1.6rem;
     }
     

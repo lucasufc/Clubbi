@@ -1,5 +1,5 @@
 import {FormEvent, useEffect, useState} from 'react'
-import { PageHeader, Input, Button } from '../../shared/Components'
+import { PageHeader, Input, Button, Select } from '../../shared/Components'
 import { useParams  } from 'react-router-dom'
 import warningIcon from '../../shared/assets/images/icons/warning.svg'
 import edit from '../../shared/assets/images/icons/edit.svg'
@@ -11,13 +11,12 @@ import './Orders.css'
 
 export const EditOrders = () => {
     let order_id = useParams().id
-    const [orders, setOrders] = useState([])
+    const [order, setOrder] = useState([])
 
     useEffect(() => {
         api.get(`/item_order/${order_id}`)
         .then(resp => resp.data.data)
-        .then(console.log)
-        //.then(resp => setOrders(resp))
+        .then(resp => setOrder(resp))
     },[])
 
     return(
@@ -29,8 +28,18 @@ export const EditOrders = () => {
             <main>
                 <form>
                     <fieldset>
-                        <legend>Compras</legend>
-                        {orders?.map((order, index) => {
+                        <legend>Compra {`${order[0]?.order_id}`}</legend>
+                        <div className= {`order-item`}>
+                            <Select
+                                name="item"
+                                label="Items"
+                                path="order"
+                                id="1"
+                            >
+
+                            </Select>
+                        </div>
+                        {/* {order?.map((order, index) => {
                             let status = order.order_status.toUpperCase()
                             return(
                                 <div className= {`order-item`} key= {index}>
@@ -59,7 +68,7 @@ export const EditOrders = () => {
 
                                 </div>
                             )
-                        })}
+                        })} */}
 
                     </fieldset>
                     <footer>

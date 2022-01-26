@@ -258,6 +258,15 @@ def delete_order(id):
 
     return "Order deleted!"
 
+#get all items of an order
+@app.route('/order/<order_id>', methods=['GET'])
+def get_order_items(order_id):
+    item_order = Item_Order.query.filter_by(order_id=order_id).all()
+    item_list = []
+    for item in item_order:
+        item_list.append(get_item(item.product_id))
+    return {"data": item_list}
+
 #delete a specific item in order
 @app.route('/orders/<order_id>/<product_id>', methods=['DELETE'])
 def delete_specifc_order(order_id, product_id):
