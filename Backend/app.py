@@ -1,12 +1,12 @@
+from itertools import product
 from flask import Flask, request
-
-from clubbi.extensions import database
+from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
 from sqlalchemy import desc
 
 app = Flask(__name__)
 CORS(app)
-database.init_app(app)
+db = SQLAlchemy(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:12345@localhost:5438/clubbi'
 
@@ -56,9 +56,6 @@ class Item_Order(db.Model):
         self.qtde = qtde
 
 #=========================== Rotas ===========================#
-@app.route('/', methods=['GET'])
-def index():
-    return "<h1>Clubbi</h1>"
 
 @app.route('/status/<order_id>', methods=['GET'])
 def get_status(order_id):
