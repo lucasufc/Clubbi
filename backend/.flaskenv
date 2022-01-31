@@ -1,2 +1,2 @@
-FLASK_APP=app
+FLASK_APP=clubbi/__init__.py
 FLASK_ENV=development
